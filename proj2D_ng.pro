@@ -11,20 +11,10 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp \
-        proj2d_ng.cpp \
-    expnode.cpp \
-    valuenode.cpp \
-    funcnode.cpp \
-    variablenode.cpp \
-    constnode.cpp
+        proj2d_ng.cpp
 
 
-HEADERS  += proj2d_ng.h \
-    expnode.h \
-    valuenode.h \
-    funcnode.h \
-    variablenode.h \
-    constnode.h
+HEADERS  += proj2d_ng.h
 
 FORMS    += proj2d_ng.ui
 
