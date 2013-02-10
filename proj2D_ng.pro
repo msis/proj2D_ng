@@ -11,16 +11,15 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp \
-        proj2d_ng.cpp
+        proj2d_ng.cpp \
+    ibexuser.cpp
 
 
-HEADERS  += proj2d_ng.h
+HEADERS  += proj2d_ng.h \
+    ibexuser.h
 
 FORMS    += proj2d_ng.ui
 
-OTHER_FILES += \
-    flex_bison/scannerConstraints.l \
-    flex_bison/parserConstraints.y
 
 unix:!macx:!symbian: LIBS += -L$$PWD/../../../PhD/ibex-2.0/bin/ -libex_linux_x86
 

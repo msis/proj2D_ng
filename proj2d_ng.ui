@@ -38,7 +38,23 @@
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_4">
            <item>
-            <widget class="QPlainTextEdit" name="plainTextContraints"/>
+            <widget class="QPlainTextEdit" name="plainTextContraints">
+             <property name="documentTitle">
+              <string/>
+             </property>
+             <property name="plainText">
+              <string>function f(x)
+  return ((2*x,-x);(-x,3*x));
+end</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="parseButton">
+             <property name="text">
+              <string>Parse</string>
+             </property>
+            </widget>
            </item>
           </layout>
          </widget>
@@ -46,6 +62,9 @@
        </layout>
       </widget>
       <widget class="QWidget" name="tabVar">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <attribute name="title">
         <string>2.Variables</string>
        </attribute>
@@ -60,6 +79,9 @@
        </layout>
       </widget>
       <widget class="QWidget" name="tabProjVar">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <attribute name="title">
         <string>3.Projected Variables</string>
        </attribute>
@@ -84,6 +106,9 @@
        </layout>
       </widget>
       <widget class="QWidget" name="tabDraw">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <attribute name="title">
         <string>4.Projection</string>
        </attribute>
