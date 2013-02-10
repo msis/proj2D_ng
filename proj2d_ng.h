@@ -2,6 +2,7 @@
 #define PROJ2D_NG_H
 
 #include <QMainWindow>
+#include <QGridLayout>
 
 #include "ibexuser.h"
 
@@ -21,10 +22,14 @@ public:
     
 private slots:
     void on_parseButton_clicked();
+    void setNewVariables(int,QString);
 
 private:
     Ui::Proj2D_NG *ui;
     ibexUser *iUser;
+
+    QMap<int,QString> varMap;
+
 
 signals:
     void parseEntry(QString);

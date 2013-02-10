@@ -24,7 +24,7 @@
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="tabConstr">
        <attribute name="title">
@@ -73,6 +73,68 @@ end</string>
          <widget class="QGroupBox" name="groupVar">
           <property name="title">
            <string>Variables</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+          </property>
+          <layout class="QGridLayout" name="varGridLayout">
+           <property name="sizeConstraint">
+            <enum>QLayout::SetDefaultConstraint</enum>
+           </property>
+           <item row="1" column="3">
+            <widget class="QDoubleSpinBox" name="upperBoundSpinBox"/>
+           </item>
+           <item row="1" column="1">
+            <widget class="QComboBox" name="intervalTypeComboBox"/>
+           </item>
+           <item row="1" column="0">
+            <widget class="QComboBox" name="varComboBox"/>
+           </item>
+           <item row="2" column="0">
+            <widget class="QPushButton" name="addVarButton">
+             <property name="text">
+              <string>Add Variable info</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="2">
+            <widget class="QDoubleSpinBox" name="lowerBoundSpinBox"/>
+           </item>
+           <item row="0" column="3">
+            <widget class="QLabel" name="ubLabel">
+             <property name="text">
+              <string>Upper Bound</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="2">
+            <widget class="QLabel" name="lbLabel">
+             <property name="text">
+              <string>Lower Bound</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QLabel" name="unionCompolabel">
+             <property name="text">
+              <string>Union/Compo</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QLabel" name="varNameLabel">
+             <property name="text">
+              <string>Variables</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QPushButton" name="evalButton">
+          <property name="text">
+           <string>Evaluate</string>
           </property>
          </widget>
         </item>

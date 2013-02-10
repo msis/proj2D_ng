@@ -45,11 +45,13 @@ void ibexUser::setFilename(QString s)
 void ibexUser::feedIbexWithFunction()
 {
     const char* charFilename=filename.toAscii().constData();
+// ibex::Function doesn't take a path into account!!
     function = new ibex::Function(charFilename);
 
     qDebug() << "function has " << function->nb_arg() << "argument(s).";
     for (int i = 0; i < function->nb_arg(); i++)
     {
+        emit (newVariableFound(i,function->arg_name(i)));
         qDebug() << "argument " << i << " name is " << function->arg_name(i);
     }
     qDebug() << "the expression of the funciton is " << function->name;
