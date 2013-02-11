@@ -7,18 +7,30 @@ Proj2D_NG::Proj2D_NG(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    varsGridLayout= new QGridLayout(ui->tabVar);
 
-    ui->intervalTypeComboBox->addItem("Union");
-    ui->intervalTypeComboBox->addItem("Intersection");
+    QLabel* labelVar = new QLabel("Variables");
+    QLabel* labelType = new QLabel("Union / Intersection");
+    QLabel* labelLB = new QLabel("Lower Bound");
+    QLabel* labelUB = new QLabel("Upper Bound");
 
-//    ui->varComboBox->hide();
-//    ui->intervalTypeComboBox->hide();
-//    ui->upperBoundSpinBox->hide();
-//    ui->lowerBoundSpinBox->hide();
+    varsGridLayout->addWidget(labelVar,0,VARLABELCOL);
+    varsGridLayout->addWidget(labelLB,0,LOWERBOUNDCOL);
+    varsGridLayout->addWidget(labelUB,0,UPPERBOUNDCOL);
+//    varsGridLayout->addWidget(labelType,0,INTERVALCOMBINATIONTYPECOL);
+
+
+    vars = new QStringList();
+//    intComType = new QStringList();
+//    intComType->append("Union");
+//    intComType->append("Intersection");
 }
 
 Proj2D_NG::~Proj2D_NG()
 {
+    delete vars;
+//    delete intComType;
+
     delete ui;
 //    delete iUser;
 }
@@ -47,22 +59,37 @@ void Proj2D_NG::setNewVariables(int i, QString s)
 {
     varMap.insert(i,s); //the insert automatically erases already existing variable
 
-    if(ui->varComboBox->findText(s)==-1) //adds the variable if not already there
-        ui->varComboBox->addItem(s);
+    if (!vars->contains(s))
+    {
+        vars->append(s);
+        updateTabVar();
+    }
 
-//    QComboBox newV(ui->varComboBox);
-//    QComboBox newIntervalType(ui->intervalTypeComboBox);
-//    QDoubleSpinBox newLowerBound(ui->lowerBoundSpinBox);
-//    QDoubleSpinBox newUpperBound(ui->upperBoundSpinBox);
+}
 
-//    QHBoxLayout layout;
-//    layout.addWidget(&newV);
-//    layout.addWidget(&newIntervalType);
-//    layout.addWidget(&newLowerBound);
-//    layout.addWidget(&newUpperBound);
+void Proj2D_NG::updateTabVar()
+{
+    //mettre à jour les anciens widget
+    foreach (QComboBox *cB, ui->tabVar->findChildren<QComboBox *>()) {
+        cB->clear();
+        cB->addItems(*vars);
+    }
 
-//    int beforeLastRow = ui->varGridLayout->rowCount()-2;
+    // rajout du dernier element au tableau
+    int lastRow = varsGridLayout->rowCount();
 
-//    ui->varGridLayout->setLayout(&layout,beforeLastRow,0,4,1);
+    QComboBox *vB = new QComboBox();
+    vB->addItems(*vars);
 
+    varsGridLayout->addWidget(vB,lastRow,VARLABELCOL);
+
+    QLineEdit *lBound = new QLineEdit();
+    varsGridLayout->addWidget(lBound,lastRow,LOWERBOUNDCOL);
+
+    QLineEdit *uBound = new QLineEdit();
+    varsGridLayout->addWidget(uBound,lastRow,UPPERBOUNDCOL);
+
+//    QComboBox *iCT = new QComboBox();//intervalCombinationType;
+//    iCT->addItems(*intComType);
+//    varsGridLayout->addWidget(iCT,lastRow,INTERVALCOMBINATIONTYPECOL);
 }
