@@ -6,33 +6,13 @@ Proj2D_NG::Proj2D_NG(QWidget *parent) :
     ui(new Ui::Proj2D_NG)
 {
     ui->setupUi(this);
-
-    varsGridLayout= new QGridLayout(ui->tabVar);
-
-    QLabel* labelVar = new QLabel("Variables");
-    QLabel* labelType = new QLabel("Union / Intersection");
-    QLabel* labelLB = new QLabel("Lower Bound");
-    QLabel* labelUB = new QLabel("Upper Bound");
-
-    varsGridLayout->addWidget(labelVar,0,VARLABELCOL);
-    varsGridLayout->addWidget(labelLB,0,LOWERBOUNDCOL);
-    varsGridLayout->addWidget(labelUB,0,UPPERBOUNDCOL);
-//    varsGridLayout->addWidget(labelType,0,INTERVALCOMBINATIONTYPECOL);
-
-
-    vars = new QStringList();
-//    intComType = new QStringList();
-//    intComType->append("Union");
-//    intComType->append("Intersection");
 }
 
 Proj2D_NG::~Proj2D_NG()
 {
-    delete vars;
-//    delete intComType;
-
     delete ui;
-//    delete iUser;
+
+    disconnect(iUser);
 }
 
 void Proj2D_NG::on_parseButton_clicked()
@@ -41,7 +21,7 @@ void Proj2D_NG::on_parseButton_clicked()
     ui->tabVar->setEnabled(true);
 }
 
-void Proj2D_NG::setIbexUser(ibexUser *iU)
+void Proj2D_NG::setIbexUser(const ibexUser *iU)
 {
     disconnect(iUser);
 
@@ -53,43 +33,50 @@ void Proj2D_NG::setIbexUser(ibexUser *iU)
             iUser,SLOT(feedIbexWithFunction()));
     connect(iUser,SIGNAL(newVariableFound(int,QString)),
             this,SLOT(setNewVariables(int,QString)));
+    connect(this,SIGNAL(varInterval(int,QString,double,double)),
+            iUser,SLOT(setVarInterval(int,QString,double,double)));
+    connect(ui->pushButtonVarValidate,SIGNAL(clicked()),
+            iUser,SLOT(setStartBox()));
 }
 
 void Proj2D_NG::setNewVariables(int i, QString s)
 {
-    varMap.insert(i,s); //the insert automatically erases already existing variable
-
-    if (!vars->contains(s))
+    if (!varMap.contains(i))
     {
-        vars->append(s);
-        updateTabVar();
-    }
+        varMap.insert(i,s); //the insert automatically erases already existing variable
 
+        // rajout du dernier element au tableau
+        int lastRow = ui->gridLayoutVariables->rowCount();
+
+        QLabel *varLab = new QLabel(s);
+        ui->gridLayoutVariables->addWidget(varLab,lastRow,VARLABELCOL);
+
+        QLineEdit *lBound = new QLineEdit();
+        lBound->setObjectName(s+"lB");
+        ui->gridLayoutVariables->addWidget(lBound,lastRow,LOWERBOUNDCOL);
+
+        QLineEdit *uBound = new QLineEdit();
+        uBound->setObjectName(s+"uB");
+        ui->gridLayoutVariables->addWidget(uBound,lastRow,UPPERBOUNDCOL);
+    }
 }
 
-void Proj2D_NG::updateTabVar()
+
+void Proj2D_NG::on_pushButtonVarValidate_clicked()
 {
-    //mettre à jour les anciens widget
-    foreach (QComboBox *cB, ui->tabVar->findChildren<QComboBox *>()) {
-        cB->clear();
-        cB->addItems(*vars);
+    QMapIterator<int, QString> i(varMap);
+    while (i.hasNext())
+    {
+        i.next();
+
+        QLineEdit *lBound = ui->tabVar->findChild<QLineEdit *>(i.value()+"lB");
+        QLineEdit *uBound = ui->tabVar->findChild<QLineEdit *>(i.value()+"uB");
+
+        qDebug() << i.key() << " : " << i.value()
+                 << " lb:" << lBound->text().toDouble()
+                 << " ub:" << uBound->text().toDouble();
+
+        emit varInterval(i.key(),i.value(),lBound->text().toDouble(),
+                         uBound->text().toDouble());
     }
-
-    // rajout du dernier element au tableau
-    int lastRow = varsGridLayout->rowCount();
-
-    QComboBox *vB = new QComboBox();
-    vB->addItems(*vars);
-
-    varsGridLayout->addWidget(vB,lastRow,VARLABELCOL);
-
-    QLineEdit *lBound = new QLineEdit();
-    varsGridLayout->addWidget(lBound,lastRow,LOWERBOUNDCOL);
-
-    QLineEdit *uBound = new QLineEdit();
-    varsGridLayout->addWidget(uBound,lastRow,UPPERBOUNDCOL);
-
-//    QComboBox *iCT = new QComboBox();//intervalCombinationType;
-//    iCT->addItems(*intComType);
-//    varsGridLayout->addWidget(iCT,lastRow,INTERVALCOMBINATIONTYPECOL);
 }

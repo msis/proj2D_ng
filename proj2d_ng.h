@@ -2,15 +2,12 @@
 #define PROJ2D_NG_H
 
 #include <QMainWindow>
-#include <QGridLayout>
 #include <QLabel>
-#include <QComboBox>
 #include <QLineEdit>
 
 #include "ibexuser.h"
 
 #define VARLABELCOL 0
-#define INTERVALCOMBINATIONTYPECOL 3
 #define LOWERBOUNDCOL 1
 #define UPPERBOUNDCOL 2
 
@@ -26,31 +23,25 @@ public:
     explicit Proj2D_NG(QWidget *parent = 0);
     ~Proj2D_NG();
 
-    void setIbexUser(ibexUser *);
+    void setIbexUser(const ibexUser *);
 
 private slots:
     void on_parseButton_clicked();
     void setNewVariables(int,QString);
 
-
-
+    void on_pushButtonVarValidate_clicked();
 
 private:
     Ui::Proj2D_NG *ui;
-    ibexUser *iUser;
+    const ibexUser *iUser;
 
     QMap<int,QString> varMap;
 
-    QGridLayout* varsGridLayout;
-
-    QStringList *vars;
-//    QStringList *intComType;
-
-    void updateTabVar();
 
 
 signals:
     void parseEntry(QString);
+    void varInterval(int,QString,double,double);
 };
 
 #endif // PROJ2D_NG_H

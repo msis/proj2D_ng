@@ -10,6 +10,8 @@
 
 #include "ibex.h"
 
+#include <iostream>
+
 
 class ibexUser : public QObject
 {
@@ -25,6 +27,8 @@ public slots:
     void setFilename(QString);
     void constraintsText(QString);
     void feedIbexWithFunction();
+    void setVarInterval(int,QString,double,double);
+    void setStartBox();
 
 protected slots:
 
@@ -33,7 +37,15 @@ private:
     QFile f;
     QString filename;
     ibex::Function *function;
+    ibex::IntervalVector *startBox;
+    ibex::IntervalMatrix *outBox;
+    QList<ibex::Interval> intervalList;
 
+    QMap<int,QString> varNameMap;
+    QMap<int,double> varLBMap;
+    QMap<int,double> varUBMap;
+
+    void processBox();
 
     
 };
