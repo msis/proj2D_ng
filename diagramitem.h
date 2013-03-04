@@ -65,7 +65,7 @@ class DiagramItem : public QGraphicsPolygonItem
 {
 public:
     enum { Type = UserType + 15 };
-    enum DiagramType { Step, Conditional, StartEnd, Io };
+    enum DiagramType { Step, Conditional, StartEnd, Io, Compo, Union, Constraint };
 
     DiagramItem(DiagramType diagramType, QMenu *contextMenu,
         QGraphicsItem *parent = 0, QGraphicsScene *scene = 0);
@@ -80,6 +80,7 @@ public:
     QPixmap image() const;
     int type() const
         { return Type;}
+    QString myText;
 
 protected:
     void contextMenuEvent(QGraphicsSceneContextMenuEvent *event);

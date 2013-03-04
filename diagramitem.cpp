@@ -45,7 +45,7 @@
 
 //! [0]
 DiagramItem::DiagramItem(DiagramType diagramType, QMenu *contextMenu,
-             QGraphicsItem *parent, QGraphicsScene *scene)
+                         QGraphicsItem *parent, QGraphicsScene *scene)
     : QGraphicsPolygonItem(parent, scene)
 {
     myDiagramType = diagramType;
@@ -53,33 +53,55 @@ DiagramItem::DiagramItem(DiagramType diagramType, QMenu *contextMenu,
 
     QPainterPath path;
     switch (myDiagramType) {
-        case StartEnd:
-            path.moveTo(200, 50);
-            path.arcTo(150, 0, 50, 50, 0, 90);
-            path.arcTo(50, 0, 50, 50, 90, 90);
-            path.arcTo(50, 50, 50, 50, 180, 90);
-            path.arcTo(150, 50, 50, 50, 270, 90);
-            path.lineTo(200, 25);
-            myPolygon = path.toFillPolygon();
-            break;
-        case Conditional:
-            myPolygon << QPointF(-100, 0) << QPointF(0, 100)
-                      << QPointF(100, 0) << QPointF(0, -100)
-                      << QPointF(-100, 0);
-            break;
-        case Step:
-            myPolygon << QPointF(-100, -100) << QPointF(100, -100)
-                      << QPointF(100, 100) << QPointF(-100, 100)
-                      << QPointF(-100, -100);
-            break;
-        default:
-            myPolygon << QPointF(-120, -80) << QPointF(-70, 80)
-                      << QPointF(120, 80) << QPointF(70, -80)
-                      << QPointF(-120, -80);
-            break;
+    case StartEnd:
+        path.moveTo(200, 50);
+        path.arcTo(150, 0, 50, 50, 0, 90);
+        path.arcTo(50, 0, 50, 50, 90, 90);
+        path.arcTo(50, 50, 50, 50, 180, 90);
+        path.arcTo(150, 50, 50, 50, 270, 90);
+        path.lineTo(200, 25);
+        myPolygon = path.toFillPolygon();
+        myText = "StartEnd";
+        break;
+    case Conditional:
+        myPolygon << QPointF(-100, 0) << QPointF(0, 100)
+                  << QPointF(100, 0) << QPointF(0, -100)
+                  << QPointF(-100, 0);
+        myText = "Conditional";
+        break;
+    case Step:
+        myPolygon << QPointF(-100, -100) << QPointF(100, -100)
+                  << QPointF(100, 100) << QPointF(-100, 100)
+                  << QPointF(-100, -100);
+        myText = "Step";
+        break;
+    case Compo:
+        myPolygon << QPointF(-100, 0) << QPointF(0, 100)
+                  << QPointF(100, 0) << QPointF(0, -100)
+                  << QPointF(-100, 0);
+        myText = "Composition";
+        break;
+    case Union:
+        myPolygon << QPointF(-100, 0) << QPointF(0, 100)
+                  << QPointF(100, 0) << QPointF(0, -100)
+                  << QPointF(-100, 0);
+        myText = "Union";
+        break;
+    case Constraint:
+        myPolygon << QPointF(-100, -100) << QPointF(100, -100)
+                  << QPointF(100, 100) << QPointF(-100, 100)
+                  << QPointF(-100, -100);
+        myText = "Constraint";
+        break;
+    default:
+        myPolygon << QPointF(-120, -80) << QPointF(-70, 80)
+                  << QPointF(120, 80) << QPointF(70, -80)
+                  << QPointF(-120, -80);
+        myText = "Default";
+        break;
     }
     setPolygon(myPolygon);
-    setFlag(QGraphicsItem::ItemIsMovable, true);
+    setFlag(QGraphicsItem::ItemIsMovable, false);
     setFlag(QGraphicsItem::ItemIsSelectable, true);
     setFlag(QGraphicsItem::ItemSendsGeometryChanges, true);
 }
@@ -139,7 +161,7 @@ void DiagramItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
 
 //! [6]
 QVariant DiagramItem::itemChange(GraphicsItemChange change,
-                     const QVariant &value)
+                                 const QVariant &value)
 {
     if (change == QGraphicsItem::ItemPositionChange) {
         foreach (Arrow *arrow, arrows) {
