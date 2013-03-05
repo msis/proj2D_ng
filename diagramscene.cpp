@@ -147,7 +147,7 @@ void DiagramScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
         item->setBrush(myItemColor);
         addItem(item);
         item->setPos(mouseEvent->scenePos());
-        addText(item->myText)->setPos(item->pos());
+//        addText(item->myText)->setPos(item->pos());
         emit itemInserted(item);
         break;
         //! [6] //! [7]

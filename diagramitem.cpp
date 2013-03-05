@@ -50,6 +50,7 @@ DiagramItem::DiagramItem(DiagramType diagramType, QMenu *contextMenu,
 {
     myDiagramType = diagramType;
     myContextMenu = contextMenu;
+    myGText = new QGraphicsSimpleTextItem(this,scene);
 
     QPainterPath path;
     switch (myDiagramType) {
@@ -100,8 +101,9 @@ DiagramItem::DiagramItem(DiagramType diagramType, QMenu *contextMenu,
         myText = "Default";
         break;
     }
+    myGText->setText(myText);
     setPolygon(myPolygon);
-    setFlag(QGraphicsItem::ItemIsMovable, false);
+    setFlag(QGraphicsItem::ItemIsMovable, true);
     setFlag(QGraphicsItem::ItemIsSelectable, true);
     setFlag(QGraphicsItem::ItemSendsGeometryChanges, true);
 }
@@ -172,3 +174,5 @@ QVariant DiagramItem::itemChange(GraphicsItemChange change,
     return value;
 }
 //! [6]
+
+

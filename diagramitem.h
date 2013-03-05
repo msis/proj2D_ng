@@ -80,7 +80,8 @@ public:
     QPixmap image() const;
     int type() const
         { return Type;}
-    QString myText;
+
+
 
 protected:
     void contextMenuEvent(QGraphicsSceneContextMenuEvent *event);
@@ -91,6 +92,9 @@ private:
     QPolygonF myPolygon;
     QMenu *myContextMenu;
     QList<Arrow *> arrows;
+    QString myText;
+
+    QGraphicsSimpleTextItem *myGText;
 };
 //! [0]
 
