@@ -65,47 +65,52 @@ DiagramItem::DiagramItem(DiagramType diagramType, QMenu *contextMenu,
         myText = "StartEnd";
         break;
     case Conditional:
-        myPolygon << QPointF(-100, 0) << QPointF(0, 100)
-                  << QPointF(100, 0) << QPointF(0, -100)
-                  << QPointF(-100, 0);
+        myPolygon << QPointF(-50, 0) << QPointF(0, 50)
+                  << QPointF(50, 0) << QPointF(0, -50)
+                  << QPointF(-50, 0);
         myText = "Conditional";
         break;
     case Step:
-        myPolygon << QPointF(-100, -100) << QPointF(100, -100)
-                  << QPointF(100, 100) << QPointF(-100, 100)
-                  << QPointF(-100, -100);
+        myPolygon << QPointF(-50, -50) << QPointF(50, -50)
+                  << QPointF(50, 50) << QPointF(-50, 50)
+                  << QPointF(-50, -50);
         myText = "Step";
         break;
     case Compo:
-        myPolygon << QPointF(-100, 0) << QPointF(0, 100)
-                  << QPointF(100, 0) << QPointF(0, -100)
-                  << QPointF(-100, 0);
-        myText = "Composition";
+        myPolygon << QPointF(-50, 0) << QPointF(0, 50)
+                  << QPointF(50, 0) << QPointF(0, -50)
+                  << QPointF(-50, 0);
+        myText = /*"Composition " + */QString::fromUtf8("  \u2229");
+        myGText->setScale(4);
         break;
     case Union:
-        myPolygon << QPointF(-100, 0) << QPointF(0, 100)
-                  << QPointF(100, 0) << QPointF(0, -100)
-                  << QPointF(-100, 0);
-        myText = "Union";
+        myPolygon << QPointF(-50, 0) << QPointF(0, 50)
+                  << QPointF(50, 0) << QPointF(0, -50)
+                  << QPointF(-50, 0);
+        myText = /*"Union " +*/QString::fromUtf8("  \u222A");
+        myGText->setScale(4);
         break;
     case Constraint:
-        myPolygon << QPointF(-100, -100) << QPointF(100, -100)
-                  << QPointF(100, 100) << QPointF(-100, 100)
-                  << QPointF(-100, -100);
+        myPolygon << QPointF(-50, -50) << QPointF(50, -50)
+                  << QPointF(50, 50) << QPointF(-50, 50)
+                  << QPointF(-50, -50);
         myText = "Constraint";
         break;
     default:
-        myPolygon << QPointF(-120, -80) << QPointF(-70, 80)
-                  << QPointF(120, 80) << QPointF(70, -80)
-                  << QPointF(-120, -80);
+        myPolygon << QPointF(-60, -40) << QPointF(-35, 40)
+                  << QPointF(60, 40) << QPointF(35, -40)
+                  << QPointF(-60, -40);
         myText = "Default";
         break;
     }
-    myGText->setText(myText);
     setPolygon(myPolygon);
     setFlag(QGraphicsItem::ItemIsMovable, true);
     setFlag(QGraphicsItem::ItemIsSelectable, true);
     setFlag(QGraphicsItem::ItemSendsGeometryChanges, true);
+
+    myGText->setText(myText);
+
+    myGText->setPos(this->boundingRect().topLeft());
 }
 //! [0]
 
@@ -174,5 +179,7 @@ QVariant DiagramItem::itemChange(GraphicsItemChange change,
     return value;
 }
 //! [6]
+
+
 
 
