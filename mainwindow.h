@@ -92,6 +92,9 @@ private slots:
     void itemSelected(QGraphicsItem *item);
     void about();
 
+    //Interval Analysis
+    void contract();
+
 private:
     void createToolBox();
     void createActions();
@@ -144,6 +147,11 @@ private:
     QAction *textAction;
     QAction *fillAction;
     QAction *lineAction;
+
+    //Interval Analysis
+    QMenu *intervalMenu;
+    QAction *contractAction;
+    QToolBar *intervalToolBar;
 };
 //! [0]
 

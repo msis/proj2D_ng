@@ -44,6 +44,8 @@
 #include <QGraphicsPixmapItem>
 #include <QList>
 
+#include "itemparametersdialog.h"
+
 QT_BEGIN_NAMESPACE
 class QPixmap;
 class QGraphicsItem;
@@ -80,7 +82,7 @@ public:
     QPixmap image() const;
     int type() const
         { return Type;}
-
+    void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event);
 
 
 protected:
@@ -93,6 +95,8 @@ private:
     QMenu *myContextMenu;
     QList<Arrow *> arrows;
     QString myText;
+
+    QString textParameters;
 
     QGraphicsSimpleTextItem *myGText;
 };

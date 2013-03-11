@@ -322,6 +322,11 @@ void MainWindow::about()
 }
 //! [20]
 
+void MainWindow::contract()
+{
+
+}
+
 //! [21]
 void MainWindow::createToolBox()
 {
@@ -445,6 +450,13 @@ void MainWindow::createActions()
     aboutAction->setShortcut(tr("Ctrl+B"));
     connect(aboutAction, SIGNAL(triggered()),
             this, SLOT(about()));
+
+    //Interval Analysis
+    contractAction = new QAction(QIcon(":/images/jaulin.png"),
+                                 tr("Contract"),this);
+    contractAction->setShortcut(tr("Ctrl+Shift+C"));
+    connect(contractAction,SIGNAL(triggered()),
+            this,SLOT(contract()));
 }
 
 //! [24]
@@ -461,12 +473,20 @@ void MainWindow::createMenus()
 
     aboutMenu = menuBar()->addMenu(tr("&Help"));
     aboutMenu->addAction(aboutAction);
+
+    intervalMenu = menuBar()->addMenu(tr("&Interval Analysis"));
+    intervalMenu->addAction(contractAction);
 }
 //! [24]
 
 //! [25]
 void MainWindow::createToolbars()
 {
+    //Interval Analysis
+    intervalToolBar = addToolBar(tr("Intreval Analysis"));
+    intervalToolBar->addAction(contractAction);
+    //I A
+
     //! [25]
     editToolBar = addToolBar(tr("Edit"));
     editToolBar->addAction(deleteAction);

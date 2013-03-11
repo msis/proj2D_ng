@@ -2,13 +2,15 @@ HEADERS	    =   mainwindow.h \
 		diagramitem.h \
 		diagramscene.h \
 		arrow.h \
-		diagramtextitem.h
+		diagramtextitem.h \
+    itemparametersdialog.h
 SOURCES	    =   mainwindow.cpp \
 		diagramitem.cpp \
 		main.cpp \
 		arrow.cpp \
 		diagramtextitem.cpp \
-		diagramscene.cpp
+		diagramscene.cpp \
+    itemparametersdialog.cpp
 RESOURCES   =	diagramscene.qrc
 
 
@@ -24,3 +26,6 @@ maemo5: include($$QT_SOURCE_TREE/examples/maemo5pkgrules.pri)
 symbian: warning(This example might not fully work on Symbian platform)
 maemo5: warning(This example might not fully work on Maemo platform)
 simulator: warning(This example might not fully work on Simulator platform)
+
+FORMS += \
+    itemparametersdialog.ui

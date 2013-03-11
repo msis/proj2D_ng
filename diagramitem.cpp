@@ -96,6 +96,12 @@ DiagramItem::DiagramItem(DiagramType diagramType, QMenu *contextMenu,
                   << QPointF(-50, -50);
         myText = "Constraint";
         break;
+    case Io:
+        myPolygon << QPointF(-60, -40) << QPointF(-35, 40)
+                  << QPointF(60, 40) << QPointF(35, -40)
+                  << QPointF(-60, -40);
+        myText = "Input/Output";
+        break;
     default:
         myPolygon << QPointF(-60, -40) << QPointF(-35, 40)
                   << QPointF(60, 40) << QPointF(35, -40)
@@ -156,6 +162,17 @@ QPixmap DiagramItem::image() const
     return pixmap;
 }
 //! [4]
+
+void DiagramItem::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
+{
+    if ((myDiagramType == Constraint) || (myDiagramType == Io))
+    {
+        itemParametersDialog* ipd = new itemParametersDialog(textParameters);
+        ipd->show();
+    }
+}
+
+
 
 //! [5]
 void DiagramItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
