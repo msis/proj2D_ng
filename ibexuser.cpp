@@ -7,7 +7,6 @@ ibexUser::ibexUser(QObject *parent) :
 
 ibexUser::~ibexUser()
 {
-    delete function;
 }
 
 void ibexUser::constraintsText(QString s)
