@@ -324,7 +324,26 @@ void MainWindow::about()
 
 void MainWindow::contract()
 {
-
+    foreach (QGraphicsItem* gi, scene->items())
+    {
+        if (DiagramItem* di = qgraphicsitem_cast<DiagramItem *>(gi))
+        {
+//            qDebug() << di->parameters();
+            switch (di->diagramType())
+            {
+            case DiagramItem::Constraint:
+                break;
+            case DiagramItem::Compo:
+                break;
+            case DiagramItem::Union:
+                break;
+            case DiagramItem::Io:
+                break;
+            default:
+                break;
+            }
+        }
+    }
 }
 
 //! [21]
@@ -353,7 +372,7 @@ void MainWindow::createToolBox()
     textButton->setIconSize(QSize(50, 50));
     QGridLayout *textLayout = new QGridLayout;
     textLayout->addWidget(textButton, 0, 0, Qt::AlignHCenter);
-    textLayout->addWidget(new QLabel(tr("Text")), 1, 0, Qt::AlignCenter);
+    textLayout->addWidget(new QLabel(tr("Comment")), 1, 0, Qt::AlignCenter);
     QWidget *textWidget = new QWidget;
     textWidget->setLayout(textLayout);
     layout->addWidget(textWidget, 2, 0);
@@ -453,7 +472,7 @@ void MainWindow::createActions()
 
     //Interval Analysis
     contractAction = new QAction(QIcon(":/images/jaulin.png"),
-                                 tr("Contract"),this);
+                                 tr("Contract Circuit"),this);
     contractAction->setShortcut(tr("Ctrl+Shift+C"));
     connect(contractAction,SIGNAL(triggered()),
             this,SLOT(contract()));

@@ -83,6 +83,7 @@ public:
     int type() const
         { return Type;}
     void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event);
+    QString parameters();
 
 
 protected:
@@ -97,6 +98,7 @@ private:
     QString myText;
 
     QString textParameters;
+    double ub,lb;
 
     QGraphicsSimpleTextItem *myGText;
 };

@@ -81,14 +81,14 @@ DiagramItem::DiagramItem(DiagramType diagramType, QMenu *contextMenu,
                   << QPointF(50, 0) << QPointF(0, -50)
                   << QPointF(-50, 0);
         myText = /*"Composition " + */QString::fromUtf8("  \u2229");
-        myGText->setScale(4);
+        myGText->setScale(3);
         break;
     case Union:
         myPolygon << QPointF(-50, 0) << QPointF(0, 50)
                   << QPointF(50, 0) << QPointF(0, -50)
                   << QPointF(-50, 0);
         myText = /*"Union " +*/QString::fromUtf8("  \u222A");
-        myGText->setScale(4);
+        myGText->setScale(3);
         break;
     case Constraint:
         myPolygon << QPointF(-50, -50) << QPointF(50, -50)
@@ -117,6 +117,9 @@ DiagramItem::DiagramItem(DiagramType diagramType, QMenu *contextMenu,
     myGText->setText(myText);
 
     myGText->setPos(this->boundingRect().topLeft());
+
+    ub = 0;
+    lb = 0;
 }
 //! [0]
 
@@ -167,9 +170,14 @@ void DiagramItem::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
 {
     if ((myDiagramType == Constraint) || (myDiagramType == Io))
     {
-        itemParametersDialog* ipd = new itemParametersDialog(textParameters);
+        itemParametersDialog* ipd = new itemParametersDialog(textParameters,&lb,&ub);
         ipd->show();
     }
+}
+
+QString DiagramItem::parameters()
+{
+    return textParameters;
 }
 
 

@@ -1,14 +1,17 @@
 #include "itemparametersdialog.h"
 #include "ui_itemparametersdialog.h"
 
-itemParametersDialog::itemParametersDialog(QString& parameters, QWidget *parent) :
+itemParametersDialog::itemParametersDialog(QString& parameters, double* ilb, double* iub, QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::itemParametersDialog), param(&parameters)
+    ui(new Ui::itemParametersDialog), param(&parameters),
+    lb(ilb), ub(iub)
 {
     ui->setupUi(this);
 
-    ui->plainTextEdit->setPlainText(*param);
+    ui->lineEdit->setText(*param);
 
+    ui->doubleSpinBoxLB->setValue(*lb);
+    ui->doubleSpinBoxUB->setValue(*ub);
 }
 
 itemParametersDialog::~itemParametersDialog()
@@ -18,7 +21,28 @@ itemParametersDialog::~itemParametersDialog()
 
 void itemParametersDialog::on_buttonBox_accepted()
 {
-    *param = ui->plainTextEdit->toPlainText();
+    *param = ui->lineEdit->text();
+    *lb = ui->doubleSpinBoxLB->value();
+    *ub = ui->doubleSpinBoxUB->value();
 }
 
 
+
+
+
+void itemParametersDialog::on_doubleSpinBoxLB_valueChanged(double arg1)
+{
+    if (arg1 > ui->doubleSpinBoxUB->value())
+    {
+
+    }
+}
+
+void itemParametersDialog::on_doubleSpinBoxUB_valueChanged(double arg1)
+{
+    if (arg1 < ui->doubleSpinBoxLB->value())
+    {
+
+    }
+
+}

@@ -3,14 +3,16 @@ HEADERS	    =   mainwindow.h \
 		diagramscene.h \
 		arrow.h \
 		diagramtextitem.h \
-    itemparametersdialog.h
+    itemparametersdialog.h \
+    ibexhandler.h
 SOURCES	    =   mainwindow.cpp \
 		diagramitem.cpp \
 		main.cpp \
 		arrow.cpp \
 		diagramtextitem.cpp \
 		diagramscene.cpp \
-    itemparametersdialog.cpp
+    itemparametersdialog.cpp \
+    ibexhandler.cpp
 RESOURCES   =	diagramscene.qrc
 
 
